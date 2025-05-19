@@ -18,7 +18,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -30,6 +30,27 @@ gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+# для работы с assets
+gem 'sprockets-rails'
+
+# для административного интерфейса
+gem 'activeadmin', '~> 3.0' # или rails_admin, или administrate
+
+# для работы с административным интерфейсом
+gem 'devise'
+
+# тоже для работы с административным интерфейсом, но для стиля
+gem 'sassc-rails'
+
+# валидация URL
+gem 'validate_url'
+
+# Для поиска и фильтрации данных
+gem 'ransack'
+
+# для защиты от отправки с других источников
+gem "rack-cors"
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
