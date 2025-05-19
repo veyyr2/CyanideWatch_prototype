@@ -1,0 +1,22 @@
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+C:/Ruby33-x64/bin/ruby.exe extconf.rb
+checking for fdatasync() in unistd.h... no
+checking for whether -O3 is accepted as CFLAGS... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-mxxcyd sitelibdir\=./.gem.20250519-2652-mxxcyd clean
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-mxxcyd sitelibdir\=./.gem.20250519-2652-mxxcyd
+generating bootsnap-x64-mingw-ucrt.def
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-mxxcyd sitelibdir\=./.gem.20250519-2652-mxxcyd install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20250519-2652-mxxcyd/bootsnap
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bootsnap-1.18.6/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-mxxcyd sitelibdir\=./.gem.20250519-2652-mxxcyd clean

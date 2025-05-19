@@ -1,0 +1,19 @@
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+C:/Ruby33-x64/bin/ruby.exe extconf.rb
+creating Makefile
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-8d2rau sitelibdir\=./.gem.20250519-2652-8d2rau clean
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-8d2rau sitelibdir\=./.gem.20250519-2652-8d2rau
+generating cruby-x64-mingw-ucrt.def
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-8d2rau sitelibdir\=./.gem.20250519-2652-8d2rau install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20250519-2652-8d2rau/skiptrace/internal
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-8d2rau sitelibdir\=./.gem.20250519-2652-8d2rau clean

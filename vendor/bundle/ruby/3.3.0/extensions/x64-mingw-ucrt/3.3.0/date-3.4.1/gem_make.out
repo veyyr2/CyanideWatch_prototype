@@ -1,0 +1,25 @@
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+C:/Ruby33-x64/bin/ruby.exe extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... no
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-qiffcs sitelibdir\=./.gem.20250519-2652-qiffcs clean
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-qiffcs sitelibdir\=./.gem.20250519-2652-qiffcs
+generating date_core-x64-mingw-ucrt.def
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.so
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-qiffcs sitelibdir\=./.gem.20250519-2652-qiffcs install
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20250519-2652-qiffcs
+
+current directory: D:/WORK/Technical_task_training/CyanideWatch_prototype/vendor/bundle/ruby/3.3.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20250519-2652-qiffcs sitelibdir\=./.gem.20250519-2652-qiffcs clean
