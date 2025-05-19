@@ -1,0 +1,37 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем контейнеры
+    const bodyBgImgs = document.getElementById('body_bg_imgs');
+    const containerMainAside = document.getElementById('container_main_aside');
+    
+    // Если элементы не найдены, выходим
+    if (!bodyBgImgs || !containerMainAside) return;
+    
+    // Получаем все изображения фона
+    const bgImages = bodyBgImgs.querySelectorAll('.img_background');
+    
+    // Если нет изображений, выходим
+    if (bgImages.length === 0) return;
+    
+    // Получаем высоту контейнера и высоту одного изображения
+    const containerHeight = containerMainAside.offsetHeight;
+    const firstImgHeight = bgImages[0].offsetHeight;
+    
+    // Вычисляем, сколько изображений помещается
+    const imagesThatFit = Math.floor(containerHeight / firstImgHeight);
+    
+    // Если все изображения уже помещаются, ничего не делаем
+    if (imagesThatFit <= bgImages.length) return;
+    
+    // Клонируем изображения, пока не заполним контейнер
+    const imagesToAdd = imagesThatFit - bgImages.length;
+    const firstImgSrc = bgImages[0].src;
+    
+    for (let i = 0; i < imagesToAdd; i++) {
+        const newImg = document.createElement('img');
+        newImg.src = firstImgSrc;
+        newImg.classList.add('img_background');
+        newImg.loading = 'lazy';
+        newImg.alt = '';
+        bodyBgImgs.appendChild(newImg);
+    }
+});

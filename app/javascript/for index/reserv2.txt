@@ -1,0 +1,60 @@
+function repeatBackgroundImages() {
+    const screenWidth = window.innerWidth;
+    const bgImagesContainer = document.getElementById('body_bg_imgs');
+    
+    // Если экран вне диапазона или контейнер не найден - выходим
+    if (screenWidth < 400 || screenWidth > 1279 || !bgImagesContainer) {
+        bgImagesContainer?.querySelectorAll('.img_clone').forEach(clone => clone.remove());
+        return;
+    }
+
+    const container = document.getElementById('container_main_aside');
+    const bgImages = bgImagesContainer.querySelectorAll('.img_background');
+    
+    if (!container || bgImages.length === 0) return;
+
+    // Очищаем клоны одной строкой
+    bgImagesContainer.querySelectorAll('.img_clone').forEach(clone => clone.remove());
+
+    const containerHeight = container.offsetHeight;
+    let currentBgHeight = Array.from(bgImages).reduce((sum, img) => sum + img.offsetHeight, 0);
+
+    while (currentBgHeight < containerHeight) {
+        for (let img of bgImages) {
+            const remainingHeight = containerHeight - currentBgHeight;
+            if (remainingHeight <= 0) break;
+
+            const clone = img.cloneNode(true);
+            clone.classList.add('img_clone');
+
+            if (remainingHeight < img.offsetHeight) {
+                Object.assign(clone.style, {
+                    height: `${remainingHeight}px`,
+                    overflow: 'hidden',
+                    objectFit: 'cover',
+                    display: 'block'
+                });
+            }
+
+            bgImagesContainer.appendChild(clone);
+            currentBgHeight += Math.min(img.offsetHeight, remainingHeight);
+        }
+    }
+}
+
+// Управление подпиской на события
+function manageResizeListener() {
+    const screenWidth = window.innerWidth;
+    const shouldListen = screenWidth >= 400 && screenWidth <= 1279;
+    
+    // Удаляем в любом случае, затем добавляем при необходимости
+    window.removeEventListener('resize', repeatBackgroundImages);
+    if (shouldListen) {
+        window.addEventListener('resize', repeatBackgroundImages);
+        repeatBackgroundImages();
+    }
+}
+
+// Инициализация
+window.addEventListener('load', manageResizeListener);
+window.addEventListener('resize', manageResizeListener);

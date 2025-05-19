@@ -1,0 +1,113 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Создаем объект MediaQueryList для проверки ширины экрана
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+
+    // Функция, которая будет выполнять основную логику
+    function handleImageDuplication() {
+        // Получаем контейнеры
+        const bodyBgImgs = document.getElementById('body_bg_imgs');
+        const containerMainAside = document.getElementById('container_main_aside');
+
+        // Если элементы не найдены, выходим
+        if (!bodyBgImgs || !containerMainAside) {
+            console.warn("Контейнеры body_bg_imgs или container_main_aside не найдены.");
+            return;
+        }
+
+        // --- Ключевое изменение: Получаем только ИСХОДНЫЕ изображения ---
+        // На случай, если скрипт запускается повторно (например, при ресайзе),
+        // нам нужны только те изображения, которые не были добавлены скриптом.
+        // Будем считать "исходными" все img внутри bodyBgImgs, у которых нет класса 'cloned-by-script'
+        // Если у вас исходные изображения имеют другой признак, адаптируйте селектор.
+        const sourceImages = Array.from(bodyBgImgs.querySelectorAll('.img_background:not(.cloned-by-script)'));
+
+        // Если нет исходных изображений, выходим
+        if (sourceImages.length === 0) {
+            console.warn("Не найдены исходные фоновые изображения (без класса 'cloned-by-script') в body_bg_imgs.");
+            return;
+        }
+        const numSourceImages = sourceImages.length; // Количество исходных изображений для чередования
+
+        // Удаляем ранее добавленные клоны, чтобы пересчитать заново
+        bodyBgImgs.querySelectorAll('.img_background.cloned-by-script').forEach(img => img.remove());
+
+        // Получаем актуальный список всех изображений ПОСЛЕ удаления клонов (это должны быть только sourceImages)
+        const currentBgImages = bodyBgImgs.querySelectorAll('.img_background');
+        const currentImagesCount = currentBgImages.length; // Количество текущих изображений
+
+        // Получаем высоту контейнера и высоту одного изображения (берем первое ИСХОДНОЕ как образец)
+        const containerHeight = containerMainAside.offsetHeight;
+        const firstSourceImg = sourceImages[0];
+
+        // Убедимся, что у изображения есть высота
+        if (!firstSourceImg || firstSourceImg.offsetHeight === 0) {
+             console.warn("Первое исходное фоновое изображение не найдено или его высота равна 0. Невозможно рассчитать дублирование.");
+             return;
+        }
+        const imgHeight = firstSourceImg.offsetHeight; // Высота одного изображения
+
+        // Вычисляем, сколько всего изображений должно быть, чтобы заполнить контейнер
+        const totalImagesNeeded = Math.max(1, Math.floor(containerHeight / imgHeight));
+
+        // Если существующих изображений достаточно или больше, чем нужно, ничего не делаем
+        if (currentImagesCount >= totalImagesNeeded) {
+            // console.log("Изображений уже достаточно.");
+            return;
+        }
+
+        // Вычисляем, сколько изображений НУЖНО ДОБАВИТЬ
+        const imagesToAdd = totalImagesNeeded - currentImagesCount;
+
+        // Клонируем изображения, чередуя ИСХОДНЫЕ
+        for (let i = 0; i < imagesToAdd; i++) {
+            // Определяем индекс ИСХОДНОГО изображения для этого клона
+            // `currentImagesCount + i` - это порядковый номер добавляемого изображения (начиная с 0)
+            // `% numSourceImages` - остаток от деления, который дает индекс в массиве sourceImages (0, 1, 2, ..., 0, 1, 2, ...)
+            const sourceImageIndex = (currentImagesCount + i) % numSourceImages;
+            const sourceImgToClone = sourceImages[sourceImageIndex];
+
+            // Создаем клон
+            const newImg = document.createElement('img');
+            newImg.src = sourceImgToClone.src; // Используем SRC нужного исходного изображения
+            newImg.classList.add('img_background');
+            newImg.classList.add('cloned-by-script'); // Помечаем как клон
+            newImg.loading = 'lazy';
+            newImg.alt = ''; // Декоративные изображения
+            bodyBgImgs.appendChild(newImg);
+        }
+        // console.log(`Добавлено ${imagesToAdd} изображений.`);
+    }
+
+    // Функция для проверки медиа-запроса и запуска/очистки логики
+    function checkMediaQuery() {
+        const bodyBgImgsContainer = document.getElementById('body_bg_imgs'); // Получаем контейнер здесь для очистки
+
+        if (mediaQuery.matches) {
+            // Если ширина экрана 1280px или больше - выполняем логику
+            // console.log("Экран >= 1280px. Запуск дублирования.");
+            handleImageDuplication();
+        } else {
+            // Если ширина экрана меньше 1280px - удаляем клонированные изображения
+            // console.log("Экран < 1280px. Удаление клонов.");
+            if (bodyBgImgsContainer) {
+                 bodyBgImgsContainer.querySelectorAll('.img_background.cloned-by-script').forEach(img => img.remove());
+            }
+        }
+    }
+
+    // Небольшая задержка перед первым выполнением, чтобы убедиться, что изображения отрисовались и имеют высоту
+    // Иногда offsetHeight может быть 0 сразу после DOMContentLoaded, если CSS или изображения не успели загрузиться/примениться.
+    // Вы можете настроить или убрать setTimeout, если уверены, что высота будет доступна сразу.
+    setTimeout(() => {
+        checkMediaQuery(); // Выполняем проверку при загрузке страницы (с небольшой задержкой)
+
+        // Добавляем слушатель на изменение состояния медиа-запроса
+        try {
+             mediaQuery.addEventListener('change', checkMediaQuery);
+        } catch (e) {
+             // Для более старых браузеров
+             mediaQuery.addListener(checkMediaQuery);
+        }
+    }, 100); // Задержка 100 мс
+
+});
